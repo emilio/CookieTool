@@ -1,0 +1,28 @@
+html {
+	font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+	font-size: 87.5%;
+	line-height: 1.62;
+	color: #565656;
+}
+
+body {
+	margin: 0;
+}
+
+.container {
+	max-width: 780px;
+	margin: 1em auto;
+}
+.adsbygoogle {
+	display: block!important; /** Sobreescribir estilos en línea */
+	margin: 0 auto;
+}
+
+h1 {
+	text-align: center;
+}
+
+
+.container p {
+	text-align: justify;
+}
