@@ -51,7 +51,7 @@ CookieTool.Config = (function() {
 		'position': 'top',
 		'message': 'En este sitio se usan cookies para ofrecer una experiencia más personalizada. <a href="{{link}}" target="_blank">Más información</a>.<br>¿Nos consiente usar cookies?',
 		'link': '/cookies',
-		'accepttext': 'Sí',
+		'agreetext': 'Sí',
 		'declinetext': 'No'
 	}
 
@@ -60,7 +60,11 @@ CookieTool.Config = (function() {
 			return config[key];
 		},
 		set: function(key, val) {
-			config[key] = val;
+			if( typeof key === 'string' ) {
+				config[key] = val;
+			} else {
+				config = CookieTool.Utils.extend(config, key);				
+			}
 		}
 	}
 }());
@@ -238,7 +242,7 @@ CookieTool.API = {
 			}
 		}
 
-		message.innerHTML = '<p>' + CookieTool.Config.get('message').replace(/\{\{link\}\}/g, CookieTool.Config.get('link')) + '</p><button data-action="agree">' + CookieTool.Config.get('accepttext') + '</button> <button data-action="decline">' + CookieTool.Config.get('declinetext') + '</button>';
+		message.innerHTML = '<p>' + CookieTool.Config.get('message').replace(/\{\{link\}\}/g, CookieTool.Config.get('link')) + '</p><button data-action="agree">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline">' + CookieTool.Config.get('declinetext') + '</button>';
 		document.body.appendChild(message);
 	},
 
