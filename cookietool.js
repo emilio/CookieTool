@@ -335,7 +335,7 @@ CookieTool.Event.on('agree', function() {
 /**
  * Default behaviour on decline: Delete GA cookies
  */
- CookieTool.Event.on('agree', function() {
+ CookieTool.Event.on('decline', function() {
 	var cookiestodelete = ['__utma', '__utmb', '__utmc', '__utmz', '__utmv'],
 		i = 0,
 		len = cookiestodelete.length;
