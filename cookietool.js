@@ -131,6 +131,7 @@ CookieTool.Cookie = {
 	 * @param {String} value
 	 * @param {Number} days
 	 * @param {String} domain
+	 * @param {String} path
 	 */
 	set: function(key, value, days, domain, path) {
 		var cookie = key + "=" + encodeURIComponent(value),
