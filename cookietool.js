@@ -130,24 +130,33 @@ CookieTool.Cookie = {
 	 * @param {String} key
 	 * @param {String} value
 	 * @param {Number} days
+	 * @param {String} domain
 	 */
-	set: function(key, value, days) {
-		var expires = '',
+	set: function(key, value, days, domain, path) {
+		var cookie = key + "=" + encodeURIComponent(value),
 			date;
 		if (days) {
 			date = new Date();
 			date.setTime(date.getTime()+(days*24*60*60*1000));
-			expires = "; expires="+date.toGMTString();
+			cookie += "; expires="+date.toGMTString();
 		}
-		document.cookie = key+"="+value+expires+"; path=/";
+		if ( domain ) {
+			cookie += "; domain=" + domain
+		}
+		if( ! path ) {
+			path = "/";
+		}
+		cookie +=  "; path=" + path;
+		document.cookie = cookie;
 	},
 
 	/**
 	 * Delete a cookie
 	 * @param {String} key
+	 * @param {String} domain necessary for GA cookies
 	 */
-	remove: function(key) {
-		CookieTool.Storage.set(key,"",-1);
+	remove: function(key, domain) {
+		CookieTool.Cookie.set(key,"",-1, domain);
 	}
 }
 
@@ -338,9 +347,13 @@ CookieTool.Event.on('agree', function() {
  CookieTool.Event.on('decline', function() {
 	var cookiestodelete = ['__utma', '__utmb', '__utmc', '__utmz', '__utmv'],
 		i = 0,
-		len = cookiestodelete.length;
+		len = cookiestodelete.length,
+		domain = window.location.hostname;
+	if( (/^www\./).test(domain) ) {
+		domain = domain.substring(4);
+	}
 
 	for( ; i < len; i++) {
-		CookieTool.Cookie.remove(cookiestodelete[i]);
+		CookieTool.Cookie.remove(cookiestodelete[i], domain);
 	}
 });
