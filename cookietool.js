@@ -225,16 +225,20 @@ CookieTool.API = {
 	 */
 	ask: function() {
 		var message,
-			status ;
+			status,
+			body = document.body;
 		// Already agreed
 		if( CookieTool.API.status() === CookieTool.API.statuses.AGREE ) {
 			return CookieTool.API.agree();
-		} else if( CookieTool.API.status() === CookieTool.API.statuses.DECLINE ) {
+		}
+		
+		if( CookieTool.API.status() === CookieTool.API.statuses.DECLINE ) {
 			return CookieTool.API.decline();
 		}
 
 		message = document.createElement('div');
 		message.className = 'cookietool-message cookietool-message-' + CookieTool.Config.get('position');
+		body.className += ' cookietool';
 		// No overcomplications with event listeners
 		message.onclick = function(e) {
 			var e = e || window.event,
@@ -248,12 +252,13 @@ CookieTool.API = {
 					e.returnValue = false;
 				}
 				message.parentNode.removeChild(message);
+				body.className = body.className.replace(/\bcookietool\b/, '');
 				return false;
 			}
 		}
 
 		message.innerHTML = '<p>' + CookieTool.Config.get('message').replace(/\{\{link\}\}/g, CookieTool.Config.get('link')) + '</p><button data-action="agree">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline">' + CookieTool.Config.get('declinetext') + '</button>';
-		document.body.appendChild(message);
+		body.appendChild(message);
 	},
 
 	/**
