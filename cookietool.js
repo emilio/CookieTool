@@ -344,6 +344,8 @@ CookieTool.Event.on('agree', function() {
 	}
 	if( window._gaq ) {
 		CookieTool.Utils.loadScript(('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js');
+	} else if ( window.ga ) {
+		CookieTool.Utils.loadScript('//wwww.google-analytics.com/analytics.js');
 	}
 });
 
