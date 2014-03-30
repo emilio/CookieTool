@@ -63,7 +63,7 @@ CookieTool.Config = (function() {
 			if( typeof key === 'string' ) {
 				config[key] = val;
 			} else {
-				config = CookieTool.Utils.extend(config, key);				
+				config = CookieTool.Utils.extend(config, key);
 			}
 		}
 	}
@@ -73,7 +73,7 @@ CookieTool.Config = (function() {
  * Event API for customisation
  */
 CookieTool.Event = (function() {
-	/** Where the callbacks are stored */	
+	/** Where the callbacks are stored */
 	var events = {};
 	return {
 		/**
@@ -210,15 +210,15 @@ CookieTool.API = {
 	/**
 	 * Set/get the current status of tracking
 	 */
-	 status: function(value) {
-	 	if( value === undefined ) {
-	 		return CookieTool.Storage.get('ctstatus');
-	 	}
-	 	if( CookieTool.API.statuses[value] ) {
-	 		return CookieTool.Storage.set('ctstatus', CookieTool.API.statuses[value], 365);
-	 	}
-	 	return CookieTool.Storage.set('ctstatus', value, 365);
-	 },
+	status: function(value) {
+		if( value === undefined ) {
+			return CookieTool.Storage.get('ctstatus');
+		}
+		if( CookieTool.API.statuses[value] ) {
+			return CookieTool.Storage.set('ctstatus', CookieTool.API.statuses[value], 365);
+		}
+		return CookieTool.Storage.set('ctstatus', value, 365);
+	},
 
 	/**
 	 * Ask for cookie consenting
@@ -231,7 +231,7 @@ CookieTool.API = {
 		if( CookieTool.API.status() === CookieTool.API.statuses.AGREE ) {
 			return CookieTool.API.agree();
 		}
-		
+
 		if( CookieTool.API.status() === CookieTool.API.statuses.DECLINE ) {
 			return CookieTool.API.decline();
 		}
@@ -257,7 +257,8 @@ CookieTool.API = {
 			}
 		}
 
-		message.innerHTML = '<p>' + CookieTool.Config.get('message').replace(/\{\{link\}\}/g, CookieTool.Config.get('link')) + '</p><button data-action="agree">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline">' + CookieTool.Config.get('declinetext') + '</button>';
+		// onclick="" in <button>'s to fix event delegation in Safari for iPhone: http://www.quirksmode.org/blog/archives/2010/09/click_event_del.html
+		message.innerHTML = '<p>' + CookieTool.Config.get('message').replace(/\{\{link\}\}/g, CookieTool.Config.get('link')) + '</p><button data-action="agree" onclick="">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline" onclick="">' + CookieTool.Config.get('declinetext') + '</button>';
 		body.appendChild(message);
 	},
 
