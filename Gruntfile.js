@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     var banner = '/*! <%= pkg.name %> <%= pkg.version %> (built <%= grunt.template.today("yyyy-mm-dd") %>) \n'
                + ' *  Repository: <%= pkg.repository.url %>\n'
                + ' *  Author: <%= pkg.author %>\n'
-               + ' *  License: <%= pkg.license %> */\n'
+               + ' *  License: <%= pkg.license %> */'
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         },
         uglify: {
             options: {
-                banner: banner,
+                banner: banner + '\n',
             },
             build: {
                 src: 'src/<%= pkg.name %>.js',
