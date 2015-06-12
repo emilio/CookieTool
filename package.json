@@ -1,0 +1,18 @@
+{
+  "name": "cookietool",
+  "description": "Simple spanish cookie-law control script",
+  "homepage": "http://emiliocobos.net/script-ley-de-cookies/",
+  "author": "Emilio Cobos <emiliocobos@usal.es> (http://emiliocobos.net)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ecoal95/CookieTool.git"
+  },
+  "version": "1.0.0",
+  "license": "(MIT OR Apache-2.0)",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.12.3",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.9.1"
+  }
+}

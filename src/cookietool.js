@@ -42,9 +42,9 @@ CookieTool.Utils = {
 			};
 			s.src = src;
 			firstjs.parentNode.insertBefore(s, firstjs);
-		}
+		};
 	 }())
-}
+};
 
 CookieTool.Config = (function() {
 	var config = {
@@ -53,7 +53,7 @@ CookieTool.Config = (function() {
 		'link': '/cookies',
 		'agreetext': 'Sí',
 		'declinetext': 'No'
-	}
+	};
 
 	return {
 		get: function(key) {
@@ -66,7 +66,7 @@ CookieTool.Config = (function() {
 				config = CookieTool.Utils.extend(config, key);
 			}
 		}
-	}
+	};
 }());
 
 /**
@@ -108,7 +108,7 @@ CookieTool.Event = (function() {
 				cbs[i]();
 			}
 		}
-	}
+	};
 }());
 
 
@@ -142,7 +142,7 @@ CookieTool.Cookie = {
 			cookie += "; expires="+date.toGMTString();
 		}
 		if ( domain ) {
-			cookie += "; domain=" + domain
+			cookie += "; domain=" + domain;
 		}
 		if( ! path ) {
 			path = "/";
@@ -159,7 +159,7 @@ CookieTool.Cookie = {
 	remove: function(key, domain) {
 		CookieTool.Cookie.set(key,"",-1, domain);
 	}
-}
+};
 
 /**
  * Storage functions (HTML5 localStorage based) (permanent storage)
@@ -189,7 +189,7 @@ if( window.localStorage ) {
 		remove: function(key) {
 			return window.localStorage.removeItem(key);
 		}
-	}
+	};
 } else {
 	// Cookie based storage
 	CookieTool.Storage = CookieTool.Cookie;
@@ -241,9 +241,12 @@ CookieTool.API = {
 		body.className += ' cookietool';
 		// No overcomplications with event listeners
 		message.onclick = function(e) {
-			var e = e || window.event,
-				target = e.target || e.srcElement,
-				action = target.getAttribute('data-action');
+            var target, action;
+
+			e = e || window.event;
+            target = e.target || e.srcElement;
+            action = target.getAttribute('data-action');
+
 			if( action && CookieTool.API[action] ) {
 				CookieTool.API[action]();
 				if( e.preventDefault ) {
@@ -255,7 +258,7 @@ CookieTool.API = {
 				body.className = body.className.replace(/\bcookietool\b/, '');
 				return false;
 			}
-		}
+		};
 
 		// onclick="" in <button>'s to fix event delegation in Safari for iPhone: http://www.quirksmode.org/blog/archives/2010/09/click_event_del.html
 		message.innerHTML = '<p>' + CookieTool.Config.get('message').replace(/\{\{link\}\}/g, CookieTool.Config.get('link')) + '</p><button data-action="agree" onclick="">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline" onclick="">' + CookieTool.Config.get('declinetext') + '</button>';
@@ -287,10 +290,12 @@ CookieTool.API = {
 
 		container.className += ' cookietool-settings';
 		container.onclick = function(e) {
-			var e = e || window.event,
-				target = e.target || e.srcElement,
-				action = target.getAttribute('data-action');
-				console.log();
+            var target, action;
+
+            e = e || window.event;
+			target = e.target || e.srcElement;
+            action = target.getAttribute('data-action');
+
 			if( action && CookieTool.API[action] ) {
 				CookieTool.API[action]();
 				CookieTool.API.displaySettings(container);
@@ -301,12 +306,12 @@ CookieTool.API = {
 				}
 				return false;
 			}
-		}
+		};
 
 		if( status === CookieTool.API.statuses.AGREE ) {
 			container.innerHTML = 'Actualmente <strong>aceptas</strong> el uso de cookies en el sitio. <a role="button" data-action="decline" href="#">Pulsa aquí para no permitir cookies</a>';
 		} else if ( status === CookieTool.API.statuses.DECLINE ) {
-			container.innerHTML = 'Actualmente <strong>no aceptas</strong> el uso de cookies en el sitio. <a role="button" data-action="agree" href="#">Pulsa aquí para permitir cookies</a>'
+			container.innerHTML = 'Actualmente <strong>no aceptas</strong> el uso de cookies en el sitio. <a role="button" data-action="agree" href="#">Pulsa aquí para permitir cookies</a>';
 		} else {
 			container.innerHTML = 'Aún no has establecido tu configuración. Haz click <a role="button" data-action="agree" href="#">aquí</a> si quieres aceptar el uso de cookies, o <a role="button" data-action="decline" href="#">aquí</a> si no.';
 		}
@@ -326,7 +331,7 @@ CookieTool.API = {
 	 	CookieTool.API.status('DECLINE');
 	 	CookieTool.Event.trigger('decline');
 	 }
-}
+};
 
 /**
  * Default id for settings, allows to put the script at the footer with no worries
